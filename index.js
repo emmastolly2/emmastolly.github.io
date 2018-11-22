@@ -15,17 +15,21 @@ window.onload = function(event) {
 
       renderer = new THREE.WebGLRenderer();
       element = renderer.domElement;
+      //Finding container in index.html so that scene renders on page
       container = document.getElementById('container');
       container.appendChild(element);
 
-      effect = new THREE.StereoEffect(renderer);
+      //StereoEffect splits the scene into two
+       effect = new THREE.StereoEffect(renderer);
 
       scene = new THREE.Scene();
 
+      //Creating and positioning camera
       camera = new THREE.PerspectiveCamera(90, window.innerWidth/window.innerHeight, 0.1, 10000);
       camera.position.set(-500, 400, -200);
       scene.add(camera);
 
+      //OrbitControls allows user to move around the scene using controls
       controls = new THREE.OrbitControls(camera, element);
       // controls.rotateUp(Math.PI / 4);
       controls.target.set(
@@ -37,10 +41,12 @@ window.onload = function(event) {
       controls.noPan = true;
 
       function setOrientationControls(e) {
+        //If not available
         if (!e.alpha) {
           return;
         }
 
+        //DeviceOrientationControls allows user to move around scene by tilting their device (makes it mobile ci)
         controls = new THREE.DeviceOrientationControls(camera, true);
         controls.connect();
         controls.update();
@@ -51,7 +57,7 @@ window.onload = function(event) {
       }
       window.addEventListener('deviceorientation', setOrientationControls, true);
 
-
+      //Scene lights
       var light = new THREE.HemisphereLight(0x777777, 0x000000, 0.6);
       scene.add(light);
 
@@ -63,19 +69,19 @@ window.onload = function(event) {
       texture.repeat = new THREE.Vector2(50, 50);
       texture.anisotropy = renderer.getMaxAnisotropy();
 
-      var material = new THREE.MeshPhongMaterial({
-        color: 0xffffff,
-        specular: 0xffffff,
-        shininess: 20,
-        shading: THREE.FlatShading,
-        map: texture
-      });
 
-      var geometry = new THREE.PlaneGeometry(1000, 1000);
-
-      var mesh = new THREE.Mesh(geometry, material);
-      mesh.rotation.x = -Math.PI / 2;
-      scene.add(mesh);
+      //Adds a floor underneath cubes
+      // var material = new THREE.MeshPhongMaterial({
+      //   color: 0xffffff,
+      //   specular: 0xffffff,
+      //   shininess: 20,
+      //   shading: THREE.FlatShading,
+      //   map: texture
+      // });
+      // var geometry = new THREE.PlaneGeometry(1000, 1000);
+      // var mesh = new THREE.Mesh(geometry, material);
+      // mesh.rotation.x = -Math.PI / 2;
+      // scene.add(mesh);
 
       cube = new THREE.Mesh( new THREE.CubeGeometry( 200, 200, 200 ), new THREE.MeshNormalMaterial() );
       cube.position.y = 300;
@@ -98,7 +104,7 @@ window.onload = function(event) {
       //   mesh.rotation.set(Math.random() * 2, Math.random() * 2, Math.random() * 2);
       //   particle.add(mesh);
       // }
-      
+
       // octoMain = new THREE.Object3D();
       // scene.add(octoMain);
       //
@@ -113,10 +119,12 @@ window.onload = function(event) {
 
       scene.add(cube);
 
-      window.addEventListener('resize', resize, false);
-      setTimeout(resize, 1);
+      //resizes the page
+      // window.addEventListener('resize', resize, false);
+      // setTimeout(resize, 1);
     }
 
+    //Checks if page needs to change size
     function resize() {
       var width = container.offsetWidth;
       var height = container.offsetHeight;
@@ -127,7 +135,7 @@ window.onload = function(event) {
       renderer.setSize(width, height);
       effect.setSize(width, height);
     }
-
+    //resizes
     function update(dt) {
       resize();
 
@@ -137,10 +145,6 @@ window.onload = function(event) {
     }
 
     function render(dt) {
-      cube.rotation.x += 0.02;
-      cube.rotation.y += 0.0225;
-      cube.rotation.z += 0.0175;
-
       effect.render(scene, camera);
     }
 
