@@ -53,7 +53,7 @@ function init(){
       controls.connect();
       controls.update();
 
-      element.addEventListener('click', fullscreen, false);
+      //element.addEventListener('click', fullscreen, false);
 
       window.removeEventListener('deviceorientation', setOrientationControls, true);
     }
@@ -64,7 +64,7 @@ function init(){
     scene.add(light);
 
     var texture = THREE.ImageUtils.loadTexture(
-      'texture/checker.png'
+      //'texture/checker.png'
     );
     texture.wrapS = THREE.RepeatWrapping;
     texture.wrapT = THREE.RepeatWrapping;
@@ -144,38 +144,6 @@ loader.load("rabbit.obj", function(object){
   object.scale.set(100,100,100);
   object.rotation.y = 3;
 });
-
-// 	texture = new THREE.TextureLoader().load( "painttest.jpg" );
-// 	material = new THREE.MeshBasicMaterial( { map: texture} );
-// loader = new THREE.OBJLoader();
-// loader.load(
-//   'rabbit.obj',
-//   function (obj, texture, material) {
-//     octoMain = new THREE.Object3D();
-//     scene.add(octoMain);
-//     octoMain.add(obj)
-//     mesh = new THREE.Mesh(octoMain, material)
-//     scene.add(mesh);
-//   }
-// )
-// mesh = new THREE.Mesh(octomain, material)
-// scene.add(mesh);
-
-  // var mtlLoader = new THREE.MTLLoader()
-  // mtlLoader.load(
-  //   'fresh-cask.mtl',
-  //   function (material) {
-  //     var objLoader = new THREE.OBJLoader()
-  //     objLoader.setMaterials(material)
-  //     objLoader.load(
-  //       'rabbit.obj',
-  //       function (object) {
-  //         octoMain.add(object);
-  //       }
-  //     )
-  //   }
-  // )
-
 }
 
 function resize() {
@@ -185,12 +153,12 @@ function resize() {
     camera.aspect = width / height;
     camera.updateProjectionMatrix();
 
-    renderer.setSize(width, height);
-    effect.setSize(width, height);
+    //renderer.setSize(width, height);
+    //effect.setSize(width, height);
   }
   //resizes
   function update(dt) {
-    resize();
+    //resize();
 
     camera.updateProjectionMatrix();
 
@@ -212,16 +180,16 @@ function animate(){
   // Render the scene
   renderer.clear();
   renderer.render(scene, camera);
+}
 
-  function fullscreen() {
-    if (container.requestFullscreen) {
-      container.requestFullscreen();
-    } else if (container.msRequestFullscreen) {
-      container.msRequestFullscreen();
-    } else if (container.mozRequestFullScreen) {
-      container.mozRequestFullScreen();
-    } else if (container.webkitRequestFullscreen) {
-      container.webkitRequestFullscreen();
-    }
+function fullscreen() {
+  if (container.requestFullscreen) {
+    container.requestFullscreen();
+  } else if (container.msRequestFullscreen) {
+    container.msRequestFullscreen();
+  } else if (container.mozRequestFullScreen) {
+    container.mozRequestFullScreen();
+  } else if (container.webkitRequestFullscreen) {
+    container.webkitRequestFullscreen();
   }
 }
