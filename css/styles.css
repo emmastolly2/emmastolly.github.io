@@ -1,0 +1,33 @@
+body{
+  width: 100%;
+  height: 100%;
+  background-color: blue;
+}
+.menu-container{
+display: flex;
+flex-direction: column;
+
+}
+.menu {
+  border: 1px solid #fff;  /* For debugging */
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+  /* .spring{
+    flex: 1;
+  }
+
+  .summer{
+    flex: 2;
+  }
+
+  .autumn{
+    flex: 3;
+  }
+
+  .winter{
+    flex: 4; */
+  }

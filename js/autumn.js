@@ -88,35 +88,6 @@ window.onload = function(event) {
   }
 
   function geometry(){
-  //   var loader = new THREE.GLTFLoader();
-  //   loader.load(
-  //      "../models/FOX.gltf",
-  //      function ( object ) {
-  // texture = new THREE.TextureLoader().load( "../models/textures/foxcolour.png" );
-  // materialObj = new THREE.MeshBasicMaterial( { map: texture} );
-  // object.traverse(function(child){
-  //   if (child instanceof THREE.Mesh){
-  //     child.material = materialObj;
-  //   }
-  // });
-  //     var object = gltf.scene;
-  //     object.scale.set(20,20,20);
-  //     object.position.set (-200, -10,-400)
-  //     scene.add( object )
-  //    },
-  // );
-
-  var loader = new THREE.GLTFLoader();
-  loader.load(
-     "../models/FOX.gltf",
-     function ( gltf ) {
-      var model = gltf.scene;
-      model.scale.set(20,20,20);
-      model.position.set (-200, -10,-400)
-      scene.add( model )
-     },
-  );
-
 
   var loader = new THREE.OBJLoader();
   loader.load("../models/wall.obj", function(wall1){
@@ -154,30 +125,7 @@ window.onload = function(event) {
     scene.add(wall4)
   });
 
-  var loader = new THREE.OBJLoader();
-  loader.load("../models/rabbit.obj", function(object){
-    // texture = new THREE.TextureLoader().load( "bunnycolour.jpg" );
-    // materialObj = new THREE.MeshBasicMaterial( { map: texture} );
-    // object.traverse(function(child){
-    //   if (child instanceof THREE.Mesh){
-    //     child.material = materialObj;
-    //   }
-    // });
-    object.position.set(-100, 10, -200);
-    object.scale.set(10,10,10);
-    object.rotation.y = 1;
-    scene.add(object)
-  });
-
-  var loader = new THREE.OBJLoader();
-  loader.load("../models/floor.obj", function(floor){
-    //(forwards,down,left)
-    floor.position.set(100,-30,-100);
-    floor.scale.set(20,12,20);
-    scene.add(floor)
-  });
-  }
-
+}
 
   function resize() {
     var width = container.offsetWidth;
