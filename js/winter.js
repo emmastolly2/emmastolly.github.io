@@ -259,7 +259,7 @@ window.onload = function(event) {
         mixer.update(delta);
       };
 
-      // update(clock.getDelta());
+      update(clock.getDelta());
       render(clock.getDelta());
     }
 
