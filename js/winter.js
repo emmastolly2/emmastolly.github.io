@@ -17,6 +17,8 @@ window.onload = function(event) {
     container = document.getElementById('container');
     container.appendChild(element);
 
+    renderer.setClearColor('#091152', 1.0);
+
     effect = new THREE.StereoEffect(renderer);
 
     scene = new THREE.Scene();
@@ -52,8 +54,9 @@ window.onload = function(event) {
     window.addEventListener('deviceorientation', setOrientationControls, true);
 
 
-    var light = new THREE.HemisphereLight(0x777777, 0x000000, 0.6);
-    scene.add(light);
+    var light = new THREE.AmbientLight( 0xffffff, 0.5 );
+    light.position.set(-300, 200, -100);
+    scene.add( light );
 
     var texture = THREE.ImageUtils.loadTexture(
       'texture/checker.png'
@@ -71,23 +74,15 @@ window.onload = function(event) {
       map: texture
     });
 
-    var geometry = new THREE.PlaneGeometry(1000, 1000);
-
-    var mesh = new THREE.Mesh(geometry, material);
-    mesh.rotation.x = -Math.PI / 2;
-    scene.add(mesh);
-
-    cube = new THREE.Mesh( new THREE.CubeGeometry( 200, 200, 200 ), new THREE.MeshNormalMaterial() );
-    cube.position.y = 300;
-    cube.position.z = 20;
-    cube.position.x = 0;
-
-    //scene.add(cube);
+    // var geometry = new THREE.PlaneGeometry(1000, 1000);
+    // var mesh = new THREE.Mesh(geometry, material);
+    // mesh.rotation.x = -Math.PI / 2;
+    // scene.add(mesh);
 
     window.addEventListener('resize', resize, false);
     setTimeout(resize, 1);
 
-    //particles
+    //particles to create snow
     particle = new THREE.Object3D();
     scene.add(particle);
     var geometry = new THREE.SphereGeometry(2, 0);
@@ -95,7 +90,7 @@ window.onload = function(event) {
       color: 'white',
     });
 
-    for (var i = 0; i < 30000; i++) {
+    for (var i = 0; i < 8000; i++) {
       var mesh = new THREE.Mesh(geometry, material);
       mesh.position.set(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5).normalize();
       mesh.position.multiplyScalar(90 + (Math.random() * 9000));
@@ -104,7 +99,24 @@ window.onload = function(event) {
     }
     particle.rotation.y -= 0.0040;
 
-  }
+//Random tree generator
+      for (var i = 0; i < 30; i++) {
+            var mtlLoader = new THREE.MTLLoader()
+        mtlLoader.load('../models/tree.mtl', function (material) {
+          var objLoader = new THREE.OBJLoader()
+          objLoader.setMaterials(material)
+          objLoader.load('../models/tree.obj', function (tree) {
+            tree.position.set(Math.random() *-1000- -500, 30,Math.random()  *-1000- -500 );
+            // tree.position.multiplyScalar(90 + (Math.random() * -200));
+            // tree.rotation.set(Math.random() * 2, Math.random() * 200, Math.random() * 200);
+            tree.scale.set(30,30,30);
+            scene.add(tree)
+            });
+          });
+        }
+
+
+}
 
   function geometry(){
 
@@ -127,9 +139,9 @@ window.onload = function(event) {
 
         //Loading in and positioning model
         var object = gltf.scene;
-        object.scale.set(10,10,10);
-        object.position.set (-300, 25,-400);
-        object.rotation.y = 0.85;
+        object.scale.set(15,15,15);
+        object.position.set (200,10, -300);
+        object.rotation.y = 1.5;
 
         //Playing Animation
         mixer = new THREE.AnimationMixer(gltf.scene);
@@ -145,54 +157,147 @@ window.onload = function(event) {
           }
         });
 
+
         console.log(object);
         scene.add( object )
       });
 
-      var loader = new THREE.OBJLoader();
-      loader.load("../models/wall.obj", function(wall1){
-        //(forwards,down,left)
-        wall1.position.set(200,-10,-300);
-        wall1.scale.set(20,20,20);
-        //object.rotation.y = 3;
-        scene.add(wall1)
+      var mtlLoader = new THREE.MTLLoader()
+  mtlLoader.load('../models/snowman.mtl', function (material) {
+    var objLoader = new THREE.OBJLoader()
+    objLoader.setMaterials(material)
+    objLoader.load('../models/snowman.obj', function (snowman) {
+      snowman.position.set ( -100, 25,-200);
+      snowman.scale.set(15,15,15);
+      snowman.rotation.y = 0.85;
+      scene.add(snowman)
       });
+    });
 
-      var loader = new THREE.OBJLoader();
-      loader.load("../models/wall.obj", function(wall1){
-        //(forwards,down,left)
-        wall1.position.set(200,-10,-300);
-        wall1.scale.set(20,20,20);
-        //object.rotation.y = 3;
-        scene.add(wall1)
-      });
+    var mtlLoader = new THREE.MTLLoader()
+mtlLoader.load('../models/pointymountains.mtl', function (material) {
+  var objLoader = new THREE.OBJLoader()
+  objLoader.setMaterials(material)
+  objLoader.load('../models/pointymountains.obj', function (mountain) {
+    mountain.position.set ( -100, 300 , 600);
+    mountain.scale.set(100,100,500);
+    mountain.rotation.y = 0.85;
+    scene.add(mountain)
+    });
+  });
 
-      var loader = new THREE.OBJLoader();
-      loader.load("../models/wall.obj", function(wall2){
-        //(forwards,down,left)
-        wall2.position.set(-100,-10,-600);
-        wall2.scale.set(20,20,20);
-        wall2.rotation.y = 1.5;
-        scene.add(wall2)
-      });
+  var mtlLoader = new THREE.MTLLoader()
+mtlLoader.load('../models/pointymountains.mtl', function (material) {
+var objLoader = new THREE.OBJLoader()
+objLoader.setMaterials(material)
+objLoader.load('../models/pointymountains.obj', function (mountain) {
+  mountain.position.set ( -100, 300 , -1500);
+  mountain.scale.set(100,100,1500);
+  mountain.rotation.y = -1;
+  scene.add(mountain)
+  });
+});
 
-      var loader = new THREE.OBJLoader();
-      loader.load("../models/wall.obj", function(wall3){
-        //(forwards/backwards,up/down,left/right)
-        wall3.position.set(-400,-10,-300);
-        wall3.scale.set(20,20,20);
-        wall3.rotation.y = 3;
-        scene.add(wall3)
-      });
+var mtlLoader = new THREE.MTLLoader()
+mtlLoader.load('../models/pointymountains.mtl', function (material) {
+var objLoader = new THREE.OBJLoader()
+objLoader.setMaterials(material)
+objLoader.load('../models/pointymountains.obj', function (mountain) {
+mountain.position.set ( 1500, 300 , 300);
+mountain.scale.set(100,100,500);
+// mountain.rotation.y = -2;
+scene.add(mountain)
+});
+});
 
-      var loader = new THREE.OBJLoader();
-      loader.load("../models/wall.obj", function(wall4){
-        //(forwards,down,left)
-        wall4.position.set(-100,-10,-200);
-        wall4.scale.set(20,20,20);
-        wall4.rotation.y = 1.5;
-        scene.add(wall4)
-      });
+
+
+//     var mtlLoader = new THREE.MTLLoader()
+// mtlLoader.load('../models/tree.mtl', function (material) {
+//   var objLoader = new THREE.OBJLoader()
+//   objLoader.setMaterials(material)
+//   objLoader.load('../models/tree.obj', function (tree) {
+//     tree.position.set(Math.random() * 2, Math.random() * 2, Math.random() * 2);
+//     tree.scale.set(15,15,15);
+//     tree.rotation.y = 0.85;
+//     scene.add(tree)
+//     });
+//   });
+
+//   var mtlLoader = new THREE.MTLLoader()
+// mtlLoader.load('../models/tree.mtl', function (material) {
+// var objLoader = new THREE.OBJLoader()
+// objLoader.setMaterials(material)
+// objLoader.load('../models/tree.obj', function (tree) {
+//   tree.position.x(Math.random() * (100 - -300 + 1) + -300)
+//     tree.scale.set(15,15,15);
+//   tree.rotation.y = 0.85;
+//   scene.add(tree)
+//   });
+// });
+
+// var mtlLoader = new THREE.MTLLoader()
+// mtlLoader.load('../models/tree.mtl', function (material) {
+// var objLoader = new THREE.OBJLoader()
+// objLoader.setMaterials(material)
+// objLoader.load('../models/tree.obj', function (tree) {
+// tree.position = (Math.random() * 2, Math.random() * 2, Math.random() * 2);
+// tree.scale.set(15,15,15);
+// tree.rotation.y = 0.85;
+// scene.add(tree)
+// });
+// });
+
+// floor
+  var mtlLoader = new THREE.MTLLoader()
+mtlLoader.load('../models/floor.mtl', function (material) {
+var objLoader = new THREE.OBJLoader()
+objLoader.setMaterials(material)
+objLoader.load('../models/floor.obj', function (floor) {
+  floor.position.set ( -100, 1,-200);
+  floor.scale.set(100,15,100);
+  floor.rotation.y = 0.85;
+  scene.add(floor)
+  });
+});
+
+}
+
+      // var loader = new THREE.OBJLoader();
+      // loader.load("../models/wall.obj", function(wall1){
+      //   //(forwards,down,left)
+      //   wall1.position.set(200,-10,-300);
+      //   wall1.scale.set(20,20,20);
+      //   //object.rotation.y = 3;
+      //   scene.add(wall1)
+      // });
+      //
+      // var loader = new THREE.OBJLoader();
+      // loader.load("../models/wall.obj", function(wall2){
+      //   //(forwards,down,left)
+      //   wall2.position.set(-100,-10,-600);
+      //   wall2.scale.set(20,20,20);
+      //   wall2.rotation.y = 1.5;
+      //   scene.add(wall2)
+      // });
+      //
+      // var loader = new THREE.OBJLoader();
+      // loader.load("../models/wall.obj", function(wall3){
+      //   //(forwards/backwards,up/down,left/right)
+      //   wall3.position.set(-400,-10,-300);
+      //   wall3.scale.set(20,20,20);
+      //   wall3.rotation.y = 3;
+      //   scene.add(wall3)
+      // });
+      //
+      // var loader = new THREE.OBJLoader();
+      // loader.load("../models/wall.obj", function(wall4){
+      //   //(forwards,down,left)
+      //   wall4.position.set(-100,-10,-200);
+      //   wall4.scale.set(20,20,20);
+      //   wall4.rotation.y = 1.5;
+      //   scene.add(wall4)
+      // });
 
       //Loads rabbit
       // var loader = new THREE.OBJLoader();
@@ -209,17 +314,6 @@ window.onload = function(event) {
       //   object.rotation.y = 1;
       //   scene.add(object)
       // });
-
-      //floor
-      var loader = new THREE.OBJLoader();
-      loader.load("../models/floor.obj", function(floor){
-        //(forwards,down,left)
-        floor.position.set(50,-20,-100);
-        floor.scale.set(20,12,20);
-        scene.add(floor)
-      });
-
-    }
 
 
     function resize() {
