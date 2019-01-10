@@ -20,7 +20,13 @@ Project also viewable without localhost at emmastolly2.github.io
 **Preview**
 <br></br>
 
-![Screenshot1](/images/Winterscreenshot.png)
+![Screenshot1](/images/Springscreenshot.png)
+<br></br>
+![Screenshot2](/images/Summerscreenshot.png)
+<br></br>
+![Screenshot3](/images/Autumnscreenshot.png)
+<br></br>
+![Screenshot4](/images/Winterscreenshot.png)
 
 <br></br>
 **Notes**  
