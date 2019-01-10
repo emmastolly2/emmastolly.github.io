@@ -54,11 +54,11 @@ window.onload = function(event) {
     window.addEventListener('deviceorientation', setOrientationControls, true);
 
 
-    var ambientlight = new THREE.AmbientLight( 0xffffff, 0.5 );
+    var ambientlight = new THREE.AmbientLight( 0xffffff, 0.7 );
     ambientlight.position.set(-300, 200, -100);
     scene.add( ambientlight );
 
-    var dirlight = new THREE.DirectionalLight( 0xffffff, 0.4 );
+    var dirlight = new THREE.DirectionalLight( 0xffffff, 0.1 );
     dirlight.position.set(-700, 200, -500);
     scene.add( dirlight );
 
@@ -169,8 +169,8 @@ mtlLoader.load('../models/autumn.mtl', function (material) {
   var objLoader = new THREE.OBJLoader()
   objLoader.setMaterials(material)
   objLoader.load('../models/autumn.obj', function (autumn) {
-    autumn.position.set (-300,-10,0);
-    autumn.scale.set(200,10,200);
+    autumn.position.set (0,0,-300);
+    autumn.scale.set(40,50,40);
     scene.add(autumn)
     });
   });

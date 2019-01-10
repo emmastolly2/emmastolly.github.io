@@ -25,7 +25,7 @@ window.onload = function(event) {
 
     camera = new THREE.PerspectiveCamera(90, window.innerWidth/window.innerHeight, 0.01, 1000);
     // camera.position.set(-500, 400, -200);
-    camera.position.set(-50, 25, -550);
+    camera.position.set(-50, 25, -650);
     scene.add(camera);
 
     controls = new THREE.OrbitControls(camera, element);
@@ -64,29 +64,9 @@ window.onload = function(event) {
 
     window.addEventListener('resize', resize, false);
     setTimeout(resize, 1);
-
-
-// //Random tree generator
-//       for (var i = 0; i < 30; i++) {
-//             var mtlLoader = new THREE.MTLLoader()
-//         mtlLoader.load('../models/tree.mtl', function (material) {
-//           var objLoader = new THREE.OBJLoader()
-//           objLoader.setMaterials(material)
-//           objLoader.load('../models/tree.obj', function (tree) {
-//             tree.position.set(Math.random() *-1000- -500, 30,Math.random()  *-1000- -500 );
-//             // tree.position.multiplyScalar(90 + (Math.random() * -200));
-//             // tree.rotation.set(Math.random() * 2, Math.random() * 200, Math.random() * 200);
-//             tree.scale.set(30,30,30);
-//             scene.add(tree)
-//             });
-//           });
-//         }
-
-
 }
 
   function geometry(){
-
 
     // Instantiate a loader
     var loader = new THREE.GLTFLoader();
@@ -138,8 +118,6 @@ window.onload = function(event) {
       scene.add(summer)
       });
     });
-
-
 }
 
 

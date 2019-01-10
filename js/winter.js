@@ -149,7 +149,7 @@ window.onload = function(event) {
     var objLoader = new THREE.OBJLoader()
     objLoader.setMaterials(material)
     objLoader.load('../models/snowman.obj', function (snowman) {
-      snowman.position.set ( -100, 25,-200);
+      snowman.position.set ( 300, 25,-200);
       snowman.scale.set(15,15,15);
       snowman.rotation.y = 0.85;
       scene.add(snowman)
