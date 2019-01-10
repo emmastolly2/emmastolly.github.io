@@ -62,27 +62,6 @@ window.onload = function(event) {
     dirlight.position.set(-300, 200, -100);
     scene.add( dirlight );
 
-    var texture = THREE.ImageUtils.loadTexture(
-      'texture/checker.png'
-    );
-    texture.wrapS = THREE.RepeatWrapping;
-    texture.wrapT = THREE.RepeatWrapping;
-    texture.repeat = new THREE.Vector2(50, 50);
-    texture.anisotropy = renderer.getMaxAnisotropy();
-
-    var material = new THREE.MeshPhongMaterial({
-      color: 'white',
-      specular: 0xffffff,
-      shininess: 20,
-      shading: THREE.FlatShading,
-      map: texture
-    });
-
-    // var geometry = new THREE.PlaneGeometry(1000, 1000);
-    // var mesh = new THREE.Mesh(geometry, material);
-    // mesh.rotation.x = -Math.PI / 2;
-    // scene.add(mesh);
-
     window.addEventListener('resize', resize, false);
     setTimeout(resize, 1);
 
@@ -110,7 +89,7 @@ window.onload = function(event) {
           var objLoader = new THREE.OBJLoader()
           objLoader.setMaterials(material)
           objLoader.load('../models/tree.obj', function (tree) {
-            tree.position.set(Math.random() *-1000- -500, 30,Math.random()  *-1000- -500 );
+          tree.position.set(Math.random() *-1000- -200, 0,Math.random()  *-1000- -100 );
             // tree.position.multiplyScalar(90 + (Math.random() * -200));
             // tree.rotation.set(Math.random() * 2, Math.random() * 200, Math.random() * 200);
             tree.scale.set(30,30,30);
@@ -127,7 +106,6 @@ window.onload = function(event) {
 
     // Instantiate a loader
     var loader = new THREE.GLTFLoader();
-    loader.setDRACOLoader( new THREE.DRACOLoader() );
     // Load a glTF resource
     loader.load(
       // resource URL

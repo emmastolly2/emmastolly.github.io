@@ -3,8 +3,9 @@ window.onload = function(event) {
   var camera, scene, renderer;
   var effect, controls;
   var element, container;
-
-  var clock = new THREE.Clock();
+  var model,mixer;
+  const mixers = [];
+  const clock = new THREE.Clock();
 
   init();
   animate();
@@ -16,13 +17,15 @@ window.onload = function(event) {
     container = document.getElementById('container');
     container.appendChild(element);
 
+    renderer.setClearColor('#89E1FF', 1.0);
+
     effect = new THREE.StereoEffect(renderer);
 
     scene = new THREE.Scene();
 
     camera = new THREE.PerspectiveCamera(90, window.innerWidth/window.innerHeight, 0.01, 1000);
     // camera.position.set(-500, 400, -200);
-      camera.position.set(-100, 50, -350);
+    camera.position.set(-500, 50, -90);
     scene.add(camera);
 
     controls = new THREE.OrbitControls(camera, element);
@@ -51,125 +54,179 @@ window.onload = function(event) {
     window.addEventListener('deviceorientation', setOrientationControls, true);
 
 
-    var light = new THREE.HemisphereLight(0x777777, 0x000000, 0.6);
-    scene.add(light);
+    var ambientlight = new THREE.AmbientLight( 0xffffff, 0.5 );
+    ambientlight.position.set(-300, 200, -100);
+    scene.add( ambientlight );
 
-    var texture = THREE.ImageUtils.loadTexture(
-      'texture/checker.png'
-    );
-    texture.wrapS = THREE.RepeatWrapping;
-    texture.wrapT = THREE.RepeatWrapping;
-    texture.repeat = new THREE.Vector2(50, 50);
-    texture.anisotropy = renderer.getMaxAnisotropy();
-
-    var material = new THREE.MeshPhongMaterial({
-      color: 0xffffff,
-      specular: 0xffffff,
-      shininess: 20,
-      shading: THREE.FlatShading,
-      map: texture
-    });
-
-    var geometry = new THREE.PlaneGeometry(1000, 1000);
-
-    var mesh = new THREE.Mesh(geometry, material);
-    mesh.rotation.x = -Math.PI / 2;
-    scene.add(mesh);
-
-    cube = new THREE.Mesh( new THREE.CubeGeometry( 200, 200, 200 ), new THREE.MeshNormalMaterial() );
-    cube.position.y = 300;
-    cube.position.z = 20;
-    cube.position.x = 0;
-
-    //scene.add(cube);
+    var dirlight = new THREE.DirectionalLight( 0xffffff, 0.4 );
+    dirlight.position.set(-700, 200, -500);
+    scene.add( dirlight );
 
     window.addEventListener('resize', resize, false);
     setTimeout(resize, 1);
-  }
+
+
+//Random tree generator
+      for (var i = 0; i < 10; i++) {
+            var mtlLoader = new THREE.MTLLoader()
+        mtlLoader.load('../models/orangetree.mtl', function (material) {
+          var objLoader = new THREE.OBJLoader()
+          objLoader.setMaterials(material)
+          objLoader.load('../models/orangetree.obj', function (otree) {
+            otree.position.set(Math.random() *-1000- -200, 0,Math.random()  *-1000- -100 );
+            otree.scale.set(30,30,30);
+            scene.add(otree)
+            });
+          });
+        }
+
+        for (var i = 0; i < 10; i++) {
+              var mtlLoader = new THREE.MTLLoader()
+          mtlLoader.load('../models/yellowtree.mtl', function (material) {
+            var objLoader = new THREE.OBJLoader()
+            objLoader.setMaterials(material)
+            objLoader.load('../models/yellowtree.obj', function (ytree) {
+              ytree.position.set(Math.random() *-1000- -200, 0,Math.random()  *-1000- -100 );
+              ytree.scale.set(30,30,30);
+              scene.add(ytree)
+              });
+            });
+          }
+
+          for (var i = 0; i < 10; i++) {
+                var mtlLoader = new THREE.MTLLoader()
+            mtlLoader.load('../models/redtree.mtl', function (material) {
+              var objLoader = new THREE.OBJLoader()
+              objLoader.setMaterials(material)
+              objLoader.load('../models/redtree.obj', function (rtree) {
+                rtree.position.set(Math.random() *-1000- -200, 0,Math.random()  *-1000- -100 );
+                rtree.scale.set(30,30,30);
+                scene.add(rtree)
+                });
+              });
+            }
+
+            for (var i = 0; i < 50; i++) {
+              var mtlLoader = new THREE.MTLLoader()
+          mtlLoader.load('../models/mushroom.mtl', function (material) {
+            var objLoader = new THREE.OBJLoader()
+            objLoader.setMaterials(material)
+            objLoader.load('../models/mushroom.obj', function (shroom) {
+              shroom.position.set(Math.random() *-1000- -100, 5,Math.random()  *-1000- -100 );
+              shroom.scale.set(1,1,1);
+              scene.add(shroom)
+              });
+            });
+          }
+
+}
 
   function geometry(){
 
-  var loader = new THREE.OBJLoader();
-  loader.load("../models/wall.obj", function(wall1){
-    //(forwards,down,left)
-    wall1.position.set(200,-10,-300);
-    wall1.scale.set(20,20,20);
-    //object.rotation.y = 3;
-    scene.add(wall1)
-  });
+    // Instantiate a loader
+    var loader = new THREE.GLTFLoader();
+    // Load a glTF resource
+    loader.load(
+      // resource URL
+      '../models/deer.gltf',
+      // called when the resource is loaded
+      function ( gltf ) {
 
-  var loader = new THREE.OBJLoader();
-  loader.load("../models/wall.obj", function(wall2){
-    //(forwards,down,left)
-    wall2.position.set(-100,-10,-600);
-    wall2.scale.set(20,20,20);
-    wall2.rotation.y = 1.5;
-    scene.add(wall2)
-  });
+        gltf.animations; // Array<THREE.AnimationClip>
+        gltf.scene; // THREE.Scene
+        gltf.scenes; // Array<THREE.Scene>
+        gltf.cameras; // Array<THREE.Camera>
+        gltf.asset; // Object
 
-  var loader = new THREE.OBJLoader();
-  loader.load("../models/wall.obj", function(wall3){
-    //(forwards/backwards,up/down,left/right)
-    wall3.position.set(-400,-10,-300);
-    wall3.scale.set(20,20,20);
-    wall3.rotation.y = 3;
-    scene.add(wall3)
-  });
+        //Loading in and positioning model
+        var object = gltf.scene;
+        object.scale.set(15,15,15);
+        object.position.set (-400,10, 200);
+        object.rotation.y = 1.5;
 
-  var loader = new THREE.OBJLoader();
-  loader.load("../models/wall.obj", function(wall4){
-    //(forwards,down,left)
-    wall4.position.set(-100,-10,-200);
-    wall4.scale.set(20,20,20);
-    wall4.rotation.y = 1.5;
-    scene.add(wall4)
+        //Playing Animation
+        mixer = new THREE.AnimationMixer(gltf.scene);
+        console.log(gltf.animations)
+        mixer.clipAction( gltf.animations[0] ).play();
+
+        //Adding texture/colour to model (causes animation to stop playing)
+
+        materialObj = new THREE.MeshBasicMaterial( { color: "#C26A41", skinning: true} );
+        object.traverse(function(child){
+          if (child instanceof THREE.Mesh){
+            child.material = materialObj;
+          }
+        });
+
+
+        console.log(object);
+        scene.add( object )
+      });
+
+
+    var mtlLoader = new THREE.MTLLoader()
+mtlLoader.load('../models/autumn.mtl', function (material) {
+  var objLoader = new THREE.OBJLoader()
+  objLoader.setMaterials(material)
+  objLoader.load('../models/autumn.obj', function (autumn) {
+    autumn.position.set (-300,-10,0);
+    autumn.scale.set(200,10,200);
+    scene.add(autumn)
+    });
   });
 
 }
 
-  function resize() {
-    var width = container.offsetWidth;
-    var height = container.offsetHeight;
 
-    camera.aspect = width / height;
-    camera.updateProjectionMatrix();
+    function resize() {
+      var width = container.offsetWidth;
+      var height = 1000;
 
-    renderer.setSize(width, height);
-    effect.setSize(width, height);
-  }
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
 
-  function update(dt) {
-    resize();
-
-    camera.updateProjectionMatrix();
-
-    controls.update(dt);
-  }
-
-  function render(dt) {
-    effect.render(scene, camera);
-  }
-
-  function animate(t) {
-    requestAnimationFrame(animate);
-
-    cube.rotation.x += 0.005;
-    cube.rotation.y += 0.01;
-
-    update(clock.getDelta());
-    render(clock.getDelta());
-  }
-
-  function fullscreen() {
-    if (container.requestFullscreen) {
-      container.requestFullscreen();
-    } else if (container.msRequestFullscreen) {
-      container.msRequestFullscreen();
-    } else if (container.mozRequestFullScreen) {
-      container.mozRequestFullScreen();
-    } else if (container.webkitRequestFullscreen) {
-      container.webkitRequestFullscreen();
+      renderer.setSize(width, height);
+      effect.setSize(width, height);
     }
-  }
 
-}
+    function update(dt) {
+      resize();
+
+      camera.updateProjectionMatrix();
+
+      controls.update(dt);
+
+      const delta = clock.getDelta();
+      mixers.forEach( ( mixer ) => { mixer.update( delta ); } );
+
+    }
+
+    function render(dt) {
+      effect.render(scene, camera);
+    }
+
+    function animate(t) {
+      requestAnimationFrame(animate);
+
+      var delta = clock.getDelta();
+      if (mixer != null && mixer !== undefined) {
+        mixer.update(delta);
+      };
+
+      update(clock.getDelta());
+      render(clock.getDelta());
+    }
+
+    function fullscreen() {
+      if (container.requestFullscreen) {
+        container.requestFullscreen();
+      } else if (container.msRequestFullscreen) {
+        container.msRequestFullscreen();
+      } else if (container.mozRequestFullScreen) {
+        container.mozRequestFullScreen();
+      } else if (container.webkitRequestFullscreen) {
+        container.webkitRequestFullscreen();
+      }
+    }
+
+  }

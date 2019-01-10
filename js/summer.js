@@ -25,7 +25,7 @@ window.onload = function(event) {
 
     camera = new THREE.PerspectiveCamera(90, window.innerWidth/window.innerHeight, 0.01, 1000);
     // camera.position.set(-500, 400, -200);
-    camera.position.set(-100, 50, -350);
+    camera.position.set(-50, 25, -550);
     scene.add(camera);
 
     controls = new THREE.OrbitControls(camera, element);
@@ -59,29 +59,8 @@ window.onload = function(event) {
     scene.add( ambientlight );
 
     var dirlight = new THREE.DirectionalLight( 0xffffff, 0.4 );
-    dirlight.position.set(-700, 200, -300);
+    dirlight.position.set(-700, 200, -500);
     scene.add( dirlight );
-
-    var texture = THREE.ImageUtils.loadTexture(
-      'texture/checker.png'
-    );
-    texture.wrapS = THREE.RepeatWrapping;
-    texture.wrapT = THREE.RepeatWrapping;
-    texture.repeat = new THREE.Vector2(50, 50);
-    texture.anisotropy = renderer.getMaxAnisotropy();
-
-    var material = new THREE.MeshPhongMaterial({
-      color: 'white',
-      specular: 0xffffff,
-      shininess: 20,
-      shading: THREE.FlatShading,
-      map: texture
-    });
-
-    // var geometry = new THREE.PlaneGeometry(1000, 1000);
-    // var mesh = new THREE.Mesh(geometry, material);
-    // mesh.rotation.x = -Math.PI / 2;
-    // scene.add(mesh);
 
     window.addEventListener('resize', resize, false);
     setTimeout(resize, 1);
@@ -108,47 +87,46 @@ window.onload = function(event) {
 
   function geometry(){
 
-    //
-    // // Instantiate a loader
-    // var loader = new THREE.GLTFLoader();
-    // loader.setDRACOLoader( new THREE.DRACOLoader() );
-    // // Load a glTF resource
-    // loader.load(
-    //   // resource URL
-    //   '../models/fox3.gltf',
-    //   // called when the resource is loaded
-    //   function ( gltf ) {
-    //
-    //     gltf.animations; // Array<THREE.AnimationClip>
-    //     gltf.scene; // THREE.Scene
-    //     gltf.scenes; // Array<THREE.Scene>
-    //     gltf.cameras; // Array<THREE.Camera>
-    //     gltf.asset; // Object
-    //
-    //     //Loading in and positioning model
-    //     var object = gltf.scene;
-    //     object.scale.set(15,15,15);
-    //     object.position.set (200,10, -300);
-    //     object.rotation.y = 1.5;
-    //
-    //     //Playing Animation
-    //     mixer = new THREE.AnimationMixer(gltf.scene);
-    //     console.log(gltf.animations)
-    //     mixer.clipAction( gltf.animations[0] ).play();
-    //
-    //     //Adding texture/colour to model (causes animation to stop playing)
-    //
-    //     materialObj = new THREE.MeshBasicMaterial( { color: "#8A430B", skinning: true} );
-    //     object.traverse(function(child){
-    //       if (child instanceof THREE.Mesh){
-    //         child.material = materialObj;
-    //       }
-    //     });
-//
-      //
-      //   console.log(object);
-      //   scene.add( object )
-      // });
+
+    // Instantiate a loader
+    var loader = new THREE.GLTFLoader();
+    // Load a glTF resource
+    loader.load(
+      // resource URL
+      '../models/seagull.gltf',
+      // called when the resource is loaded
+      function ( gltf ) {
+
+        gltf.animations; // Array<THREE.AnimationClip>
+        gltf.scene; // THREE.Scene
+        gltf.scenes; // Array<THREE.Scene>
+        gltf.cameras; // Array<THREE.Camera>
+        gltf.asset; // Object
+
+        //Loading in and positioning model
+        var object = gltf.scene;
+        object.scale.set(15,15,15);
+        object.position.set (100,100, -600);
+        object.rotation.y = 1.5;
+
+        //Playing Animation
+        mixer = new THREE.AnimationMixer(gltf.scene);
+        console.log(gltf.animations)
+        mixer.clipAction( gltf.animations[0] ).play();
+
+        //Adding texture/colour to model (causes animation to stop playing)
+
+        materialObj = new THREE.MeshBasicMaterial( { color: "grey", skinning: true} );
+        object.traverse(function(child){
+          if (child instanceof THREE.Mesh){
+            child.material = materialObj;
+          }
+        });
+
+
+        console.log(object);
+        scene.add( object )
+      });
 
       var mtlLoader = new THREE.MTLLoader()
   mtlLoader.load('../models/summer.mtl', function (material) {

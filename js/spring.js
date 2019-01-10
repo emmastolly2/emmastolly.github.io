@@ -62,27 +62,6 @@ window.onload = function(event) {
     light.position.set(-300, 200, -100);
     scene.add( light );
 
-    var texture = THREE.ImageUtils.loadTexture(
-      'texture/checker.png'
-    );
-    texture.wrapS = THREE.RepeatWrapping;
-    texture.wrapT = THREE.RepeatWrapping;
-    texture.repeat = new THREE.Vector2(50, 50);
-    texture.anisotropy = renderer.getMaxAnisotropy();
-
-    var material = new THREE.MeshPhongMaterial({
-      color: 'white',
-      specular: 0xffffff,
-      shininess: 20,
-      shading: THREE.FlatShading,
-      map: texture
-    });
-
-    // var geometry = new THREE.PlaneGeometry(1000, 1000);
-    // var mesh = new THREE.Mesh(geometry, material);
-    // mesh.rotation.x = -Math.PI / 2;
-    // scene.add(mesh);
-
     window.addEventListener('resize', resize, false);
     setTimeout(resize, 1);
 
@@ -93,7 +72,7 @@ window.onload = function(event) {
           var objLoader = new THREE.OBJLoader()
           objLoader.setMaterials(material)
           objLoader.load('../models/tree3.obj', function (tree) {
-            tree.position.set(Math.random() *-1000- -500, 20,Math.random()  *-1000- -500 );
+            tree.position.set(Math.random() *-1000- -200, 0,Math.random()  *-1000- -100 );
             // tree.position.multiplyScalar(90 + (Math.random() * -200));
             // tree.rotation.set(Math.random() * 2, Math.random() * 200, Math.random() * 200);
             tree.scale.set(20,20,20);
@@ -102,13 +81,13 @@ window.onload = function(event) {
           });
         }
 
-        for (var i = 0; i < 30; i++) {
+        for (var i = 0; i < 20; i++) {
               var mtlLoader = new THREE.MTLLoader()
           mtlLoader.load('../models/cloud1.mtl', function (material) {
             var objLoader = new THREE.OBJLoader()
             objLoader.setMaterials(material)
             objLoader.load('../models/cloud1.obj', function (cloud1) {
-              cloud1.position.set(Math.random() *-1000- -500, 300,Math.random()  *-1000- -500 );
+              cloud1.position.set(Math.random() *-1000- -100, 300,Math.random()  *-1000- -100 );
               cloud1.scale.set(20,20,20);
               scene.add(cloud1)
               });
@@ -121,7 +100,7 @@ window.onload = function(event) {
               var objLoader = new THREE.OBJLoader()
               objLoader.setMaterials(material)
               objLoader.load('../models/cloud2.obj', function (cloud2) {
-                cloud2.position.set(Math.random() *-1000- -500,300,Math.random()  *-1000- -500 );
+                cloud2.position.set(Math.random() *-1000- -100,300,Math.random()  *-1000- -100 );
                 cloud2.scale.set(20,20,20);
                 scene.add(cloud2)
                 });
@@ -134,7 +113,7 @@ window.onload = function(event) {
             var objLoader = new THREE.OBJLoader()
             objLoader.setMaterials(material)
             objLoader.load('../models/pinkflower.obj', function (pinkflower) {
-              pinkflower.position.set(Math.random() *-1000- -500, 20,Math.random()  *-1000- -500 );
+              pinkflower.position.set(Math.random() *-1000- -100, 20,Math.random()  *-1000- -100 );
               pinkflower.scale.set(20,20,20);
               scene.add(pinkflower)
               });
