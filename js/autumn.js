@@ -149,8 +149,6 @@ window.onload = function(event) {
         console.log(gltf.animations)
         mixer.clipAction( gltf.animations[0] ).play();
 
-        //Adding texture/colour to model (causes animation to stop playing)
-
         materialObj = new THREE.MeshBasicMaterial( { color: "#C26A41", skinning: true} );
         object.traverse(function(child){
           if (child instanceof THREE.Mesh){
@@ -174,9 +172,7 @@ mtlLoader.load('../models/autumn.mtl', function (material) {
     scene.add(autumn)
     });
   });
-
 }
-
 
     function resize() {
       var width = container.offsetWidth;

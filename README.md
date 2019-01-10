@@ -1,6 +1,4 @@
-<center>
-**Seasons VR**
-<br></br>
+<center>**Seasons VR**<br></br>
 
 In this project I explored the world of virtual reality and how I can create my own environments through the use of three.js
 The theme of my project was 'Seasons', in which I created 4 environments, each one representing a different season.

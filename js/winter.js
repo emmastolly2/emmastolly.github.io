@@ -129,9 +129,6 @@ window.onload = function(event) {
         mixer = new THREE.AnimationMixer(gltf.scene);
         console.log(gltf.animations)
         mixer.clipAction( gltf.animations[0] ).play();
-
-        //Adding texture/colour to model (causes animation to stop playing)
-
         materialObj = new THREE.MeshBasicMaterial( { color: "#8A430B", skinning: true} );
         object.traverse(function(child){
           if (child instanceof THREE.Mesh){
@@ -207,60 +204,7 @@ objLoader.load('../models/floor.obj', function (floor) {
 
 }
 
-      // var loader = new THREE.OBJLoader();
-      // loader.load("../models/wall.obj", function(wall1){
-      //   //(forwards,down,left)
-      //   wall1.position.set(200,-10,-300);
-      //   wall1.scale.set(20,20,20);
-      //   //object.rotation.y = 3;
-      //   scene.add(wall1)
-      // });
-      //
-      // var loader = new THREE.OBJLoader();
-      // loader.load("../models/wall.obj", function(wall2){
-      //   //(forwards,down,left)
-      //   wall2.position.set(-100,-10,-600);
-      //   wall2.scale.set(20,20,20);
-      //   wall2.rotation.y = 1.5;
-      //   scene.add(wall2)
-      // });
-      //
-      // var loader = new THREE.OBJLoader();
-      // loader.load("../models/wall.obj", function(wall3){
-      //   //(forwards/backwards,up/down,left/right)
-      //   wall3.position.set(-400,-10,-300);
-      //   wall3.scale.set(20,20,20);
-      //   wall3.rotation.y = 3;
-      //   scene.add(wall3)
-      // });
-      //
-      // var loader = new THREE.OBJLoader();
-      // loader.load("../models/wall.obj", function(wall4){
-      //   //(forwards,down,left)
-      //   wall4.position.set(-100,-10,-200);
-      //   wall4.scale.set(20,20,20);
-      //   wall4.rotation.y = 1.5;
-      //   scene.add(wall4)
-      // });
-
-      //Loads rabbit
-      // var loader = new THREE.OBJLoader();
-      // loader.load("../models/rabbit.obj", function(object){
-      //   // texture = new THREE.TextureLoader().load( "bunnycolour.jpg" );
-      //   // materialObj = new THREE.MeshBasicMaterial( { map: texture} );
-      //   // object.traverse(function(child){
-      //   //   if (child instanceof THREE.Mesh){
-      //   //     child.material = materialObj;
-      //   //   }
-      //   // });
-      //   object.position.set(-100, 10, -200);
-      //   object.scale.set(10,10,10);
-      //   object.rotation.y = 1;
-      //   scene.add(object)
-      // });
-
-
-    function resize() {
+        function resize() {
       var width = container.offsetWidth;
       var height = 1000;
 
