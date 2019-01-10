@@ -58,6 +58,10 @@ window.onload = function(event) {
     light.position.set(-300, 200, -100);
     scene.add( light );
 
+    var dirlight = new THREE.DirectionalLight( 0xffffff, 0.2 );
+    dirlight.position.set(-300, 200, -100);
+    scene.add( dirlight );
+
     var texture = THREE.ImageUtils.loadTexture(
       'texture/checker.png'
     );
@@ -209,44 +213,6 @@ mountain.scale.set(100,100,500);
 scene.add(mountain)
 });
 });
-
-
-
-//     var mtlLoader = new THREE.MTLLoader()
-// mtlLoader.load('../models/tree.mtl', function (material) {
-//   var objLoader = new THREE.OBJLoader()
-//   objLoader.setMaterials(material)
-//   objLoader.load('../models/tree.obj', function (tree) {
-//     tree.position.set(Math.random() * 2, Math.random() * 2, Math.random() * 2);
-//     tree.scale.set(15,15,15);
-//     tree.rotation.y = 0.85;
-//     scene.add(tree)
-//     });
-//   });
-
-//   var mtlLoader = new THREE.MTLLoader()
-// mtlLoader.load('../models/tree.mtl', function (material) {
-// var objLoader = new THREE.OBJLoader()
-// objLoader.setMaterials(material)
-// objLoader.load('../models/tree.obj', function (tree) {
-//   tree.position.x(Math.random() * (100 - -300 + 1) + -300)
-//     tree.scale.set(15,15,15);
-//   tree.rotation.y = 0.85;
-//   scene.add(tree)
-//   });
-// });
-
-// var mtlLoader = new THREE.MTLLoader()
-// mtlLoader.load('../models/tree.mtl', function (material) {
-// var objLoader = new THREE.OBJLoader()
-// objLoader.setMaterials(material)
-// objLoader.load('../models/tree.obj', function (tree) {
-// tree.position = (Math.random() * 2, Math.random() * 2, Math.random() * 2);
-// tree.scale.set(15,15,15);
-// tree.rotation.y = 0.85;
-// scene.add(tree)
-// });
-// });
 
 // floor
   var mtlLoader = new THREE.MTLLoader()

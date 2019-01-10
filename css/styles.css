@@ -1,33 +1,35 @@
-body{
-  width: 100%;
-  height: 100%;
-  background-color: blue;
+h1{
+  padding-top: 50px;
 }
-.menu-container{
-display: flex;
-flex-direction: column;
+h2{
+  padding-top: 10px;
+}
+h1, h2{
+  font-family: sans-serif;
+  text-align: center;
+  color: black;
+}
 
+* {
+  /* Gets rid of margin/padding automatically added by the browser */
+  margin: 0;
+  padding: 0;
 }
-.menu {
-  border: 1px solid #fff;  /* For debugging */
-  width: 100%;
-  height: 100%;
+
+.menu-container {
+
+  /* Making the html page take up the full screen */
+  position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+  /* Centering title cards using flexbox */
+  display: flex;
   justify-content: center;
   align-items: center;
 }
 
-  /* .spring{
-    flex: 1;
-  }
-
-  .summer{
-    flex: 2;
-  }
-
-  .autumn{
-    flex: 3;
-  }
-
-  .winter{
-    flex: 4; */
-  }
+body{
+  background-color: #D2FFCB;
+}
